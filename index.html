@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script defer src="stack.js"></script>
+    <link rel="stylesheet" href="stack.css">
+    <title>DS-Visualizer</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">DS-Visualizer</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#">Stack</a>
+                    <a class="nav-link" href="#">Queue</a>
+                    <a class="nav-link" href="#">Circular Queue</a>
+                    <a class="nav-link" href="#">Linked list</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-4">
+        <div class="container">
+            <section class="hero-card">
+                <div>
+                    <h1>Stack Visualizer</h1>
+                </div>
+            </section>
+
+            <div id="stack" class="row g-4 mt-2 align-items-start">
+                <div class="col-lg-7">
+                    <div class="visualizer-card">
+                        <div class="card-title-row">
+                            <h3>Stack Preview</h3>
+                        </div>
+                        <div id="display"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="controls-card">
+                        <div id="stack_ini" class="control-group">
+                            <label for="stack_size">Stack Size</label>
+                            <input type="number" placeholder="Enter stack size" id="stack_size" min="1">
+                            <button id="initialize_stack" onclick="initializeStack()">Initialize Stack</button>
+                        </div>
+
+                        <div id="status_cont">
+                            <div id="top" class="status-pill">Top: -</div>
+                            <div id="status" class="status-pill status-idle">Status: Ready</div>
+                        </div>
+
+                        <h4 class="operations-title">Stack Operations</h4>
+
+                        <div id="push" class="operation-card mt-3">
+                            <label for="push-value">Value to Push</label>
+                            <input type="number" id="push-value" placeholder="Enter value">
+                            <button onclick="Push()">Push</button>
+                        </div>
+
+                        <div id="pop" class="operation-card mt-3">
+                            <label for="popped_value">Value Popped</label>
+                            <input type="text" id="popped_value" readonly placeholder="Popped value appears here">
+                            <button onclick="Pop()">Pop</button>
+                        </div>
+
+                        <div id="peek" class="operation-card mt-3">
+                            <label for="peeked_value">Peeked Value</label>
+                            <input type="text" id="peeked_value" readonly placeholder="Peeked value appears here">
+                            <button onclick="Peek()">Peek</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
