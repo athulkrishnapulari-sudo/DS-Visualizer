@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script defer src="stack.js"></script>
-    <link rel="stylesheet" href="stack.css">
+    <script defer src="queue.js"></script>
+    <link rel="stylesheet" href="main.css">
     <title>DS-Visualizer</title>
 </head>
 
@@ -20,10 +21,10 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Stack</a>
-                    <a class="nav-link" href="#">Queue</a>
-                    <a class="nav-link" href="#">Circular Queue</a>
-                    <a class="nav-link" href="#">Linked list</a>
+                    <a class="nav-link active" id="nav-stack" aria-current="page" href="#" onclick="showPage('stack', event); return false;">Stack</a>
+                    <a class="nav-link" id="nav-queue" href="#" onclick="showPage('queue', event); return false;">Queue</a>
+                    <a class="nav-link" id="nav-cq" href="#" onclick="showPage('cq', event); return false;">Circular Queue</a>
+                    <a class="nav-link" id="nav-ll" href="#" onclick="showPage('ll', event); return false;">Linked list</a>
                 </div>
             </div>
         </div>
@@ -31,19 +32,20 @@
 
     <main class="py-4">
         <div class="container">
-            <section class="hero-card">
-                <div>
-                    <h1>Stack Visualizer</h1>
-                </div>
-            </section>
+            <section id="stack-page" class="page-section">
+                <section class="hero-card">
+                    <div>
+                        <h1>Stack Visualizer</h1>
+                    </div>
+                </section>
 
-            <div id="stack" class="row g-4 mt-2 align-items-start">
+                <div id="stack" class="row g-4 mt-2 align-items-start">
                 <div class="col-lg-7">
                     <div class="visualizer-card">
                         <div class="card-title-row">
                             <h3>Stack Preview</h3>
                         </div>
-                        <div id="display"></div>
+                        <div id="display1" class="display"></div>
                     </div>
                 </div>
 
@@ -82,6 +84,62 @@
                     </div>
                 </div>
             </div>
+            </section>
+
+            <section id="queue-page" class="page-section" style="display: none;">
+                <section class="hero-card">
+                    <div>
+                        <h1>Queue Visualizer</h1>
+                    </div>
+                </section>
+
+                <div id="queue" class="row g-4 mt-2 align-items-start">
+                <div class="col-lg-7">
+                    <div class="visualizer-card">
+                        <div class="card-title-row">
+                            <h3>Queue Preview</h3>
+                        </div>
+                        <div id="queue_display" class="display"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="controls-card">
+                        <div id="queue_ini" class="control-group">
+                            <label for="queue_size">Queue Size</label>
+                            <input type="number" placeholder="Enter queue size" id="queue_size" min="1">
+                            <button id="queue_init_btn" onclick="initializeQueue()">Initialize Queue</button>
+                        </div>
+
+                        <div id="status_cont">
+                            <div id="queue-front" class="status-pill">Front: -</div>
+                            <div id="queue-rear" class="status-pill">Rear: -</div>
+                            <div id="queue-status" class="status-pill status-idle">Status: Ready</div>
+                        </div>
+
+                        <h4 class="operations-title">Queue Operations</h4>
+
+                        <div id="enqueue-op" class="operation-card mt-3">
+                            <label for="enqueue-value">Value to Enqueue</label>
+                            <input type="number" id="enqueue-value" placeholder="Enter value">
+                            <button onclick="Enqueue()">Enqueue</button>
+                        </div>
+
+                        <div id="dequeue-op" class="operation-card mt-3">
+                            <label for="dequeue_value">Value Dequeued</label>
+                            <input type="text" id="dequeue_value" readonly placeholder="Dequeued value appears here">
+                            <button onclick="Dequeue()">Dequeue</button>
+                        </div>
+
+                        <div id="queue-peek" class="operation-card mt-3">
+                            <label for="queue_peek_value">Peeked Value</label>
+                            <input type="text" id="queue_peek_value" readonly placeholder="Peeked value appears here">
+                            <button onclick="queue_Peek()">Peek</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
         </div>
     </main>
 
@@ -94,6 +152,43 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+    
+    <script>
+        function showPage(pageId, event) {
+            if (event) {
+                event.preventDefault();
+            }
+            
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected page
+            const pageMap = {
+                'stack': 'stack-page',
+                'queue': 'queue-page',
+                'cq': 'cq-page',
+                'll': 'll-page'
+            };
+            
+            if (pageMap[pageId]) {
+                document.getElementById(pageMap[pageId]).style.display = 'block';
+            }
+            
+            // Add active class to clicked nav link
+            const navId = 'nav-' + (pageId === 'cq' ? 'cq' : pageId === 'll' ? 'll' : pageId);
+            const navLink = document.getElementById(navId);
+            if (navLink) {
+                navLink.classList.add('active');
+            }
+        }
+    </script>
 </body>
 
 </html>

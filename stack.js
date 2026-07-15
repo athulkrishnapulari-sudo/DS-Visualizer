@@ -14,7 +14,7 @@ function initializeStack() {
 
     stack_size = size - 1;
     stacktop = -1;
-    document.getElementById('display').innerHTML = '';
+    document.getElementById('display1').innerHTML = '';
     document.getElementById('push-value').value = '';
     document.getElementById('popped_value').value = '';
     document.getElementById('peeked_value').value = '';
@@ -31,7 +31,7 @@ function initializeStack() {
         </div>
     `;
 
-    document.getElementById('display').innerHTML = content;
+    document.getElementById('display1').innerHTML = content;
     update_top(-1);
     updateTopDisplay();
     updateStatus('Stack initialized. Ready for operations.', 'success');
